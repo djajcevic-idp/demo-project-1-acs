@@ -1,0 +1,50 @@
+#$schema: https://json.schemastore.org/catalog-info.json
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: demo-project-1-bff
+  annotations:
+    github.com/project-slug: djajcevic-idp/demo-project-1-acs
+    backstage.io/environment: dev
+    'backstage.io/kubernetes-label-selector': 'app.kubernetes.io/name=demo-project-1-bff'
+    argocd/app-name: demo-project-1
+    sonarqube.org/project-key: default/com.example:demo-project-1-bff
+    backstage.io/techdocs-ref: 'dir:.'
+    demo.backstage.io/techdocs-builder: 'local'
+  tags:
+    - java
+  links:
+    - url: https://demo-project-1.apps.idp.dhl.com/api
+      title: API
+      icon: star
+spec:
+  type: service
+  lifecycle: development
+  owner: demo-team
+  system: demo
+  dependsOn:
+    - component:default/demo-project-1-acr
+    - resource:default/demo-project-1
+  providesApis:
+    - demo-project-1-bff
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: demo-project-1-bff
+spec:
+  type: openapi
+  lifecycle: demo
+  owner: demo-team
+  definition:
+    $text: https://demo-project-1.apps.idp.dhl.com/api/api-docs
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: demo-project-1
+spec:
+  type: database
+  lifecycle: demo
+  owner: demo-team
+  system: demo
