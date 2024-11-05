@@ -21,6 +21,8 @@ public class DemoController {
 
     private final UserRepo userRepo;
 
+    private final String TOP_SECRET_PASSWORD = "123";
+
     public DemoController(UserRepo userRepo) {
         this.userRepo = userRepo;
     }
